@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gradient.ai | The Autonomous News Network</title>
+    
+    <!-- Fonts: Inter (UI) & Sora (Headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#020203', // Deepest black/grey
+                            surface: '#0A0A0C',
+                            border: '#FFFFFF15',
+                            accent: '#6366f1',
+                            success: '#10b981',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'scan': 'scan 2s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'blob-spin': 'blobSpin 20s linear infinite',
+                        'morph': 'morph 8s ease-in-out infinite',
+                        'hover3d': 'hover3D 6s ease-in-out infinite',
+                        'scan-down': 'scanDown 3s linear infinite',
+                        'scan-line': 'scanLineMove 3s linear infinite',
+                        'orb-float': 'orbFloat 10s ease-in-out infinite',
+                        'modal-in': 'modalIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)' },
+                            '100%': { boxShadow: '0 0 40px rgba(168, 85, 247, 0.4)' },
+                        },
+                        scan: {
+                            '0%': { top: '0%' },
+                            '100%': { top: '100%' },
+                        },
+                        blobSpin: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        morph: {
+                            '0%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+                            '50%': { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' },
+                            '100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+                        },
+                        hover3D: {
+                            '0%, 100%': { transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)' },
+                            '50%': { transform: 'perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-15px)' },
+                        },
+                        scanDown: {
+                            '0%': { backgroundPosition: '0% 0%' },
+                            '100%': { backgroundPosition: '0% 200%' },
+                        },
+                        scanLineMove: {
+                            '0%': { top: '0%', opacity: '0' },
+                            '10%': { opacity: '1' },
+                            '90%': { opacity: '1' },
+                            '100%': { top: '100%', opacity: '0' },
+                        },
+                        orbFloat: {
+                            '0%, 100%': { transform: 'translate(-50%, -50%) translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translate(-50%, -50%) translateY(-20px) rotate(5deg)' },
+                        },
+                        modalIn: {
+                            '0%': { opacity: '0', transform: 'translate(-50%, -40%) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Ultra-Premium Gradient Text */
+        .text-gradient-logo {
+            background: linear-gradient(to right, #ffffff 40%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Dark Mode Hero Gradient */
+        .dark .text-gradient-hero {
+            background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Light Mode Hero Gradient */
+        .text-gradient-hero {
+            background: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Gold/Premium Gradient for Contribution Text */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #d946ef 50%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientMove 5s ease infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Technical Grid Background */
+        .dark .tech-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+        }
+
+        .tech-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+        }
+
+        /* Glass Cards */
+        .glass-premium {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dark .glass-premium {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-premium:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(99, 102, 241, 0.2);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+        }
+        
+        .dark .glass-premium:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Layer List Item */
+        .layer-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .layer-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            transition: 0.3s;
+        }
+        .dark .layer-item::before { background: #334155; }
+        .layer-item.active::before { background: #10b981; box-shadow: 0 0 10px #10b981; }
+        
+        /* Roadmap Line */
+        .roadmap-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 19px; 
+            width: 2px;
+            background: linear-gradient(to bottom, #6366f1, rgba(0,0,0,0.05));
+            z-index: 0;
+        }
+        .dark .roadmap-line::before { background: linear-gradient(to bottom, #6366f1, rgba(255,255,255,0.1)); }
+
+        /* Glow Effects */
+        .glow-point {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(40px);
+        }
+        .dark .glow-point { background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%); }
+
+        /* 3D BLOB STYLES */
+        .blob-3d {
+            width: 80px;
+            height: 80px;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            position: relative;
+            isolation: isolate;
+            animation: morph 8s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+        
+        .blob-3d::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8) 0%, transparent 20%),
+                        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.4) 0%, transparent 20%);
+            z-index: 2;
+            mix-blend-mode: overlay;
+        }
+
+        .blob-3d::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 10px 10px 20px rgba(0,0,0,0.2), 
+                        inset -5px -5px 15px rgba(255,255,255,0.4);
+            z-index: 1;
+        }
+        
+        .blob-v1 { background: conic-gradient(from 0deg, #3b82f6, #06b6d4, #3b82f6); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4); }
+        .blob-v2 { background: conic-gradient(from 90deg, #8b5cf6, #ec4899, #8b5cf6); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+        .blob-v3 { background: conic-gradient(from 180deg, #10b981, #34d399, #10b981); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4); }
+        .blob-v4 { background: conic-gradient(from 270deg, #f97316, #f43f5e, #f97316); box-shadow: 0 15px 35px rgba(249, 115, 22, 0.4); }
+        
+        /* === NEW WORLD CLASS LIQUID 3D LOGO === */
+        .logo-wrapper {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SVG Filter for Fluid bonding */
+        .fluid-filter {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .logo-liquid-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            filter: url(#gooey); /* The magic sauce for fluidity */
+            animation: orbFloat 8s ease-in-out infinite;
+        }
+
+        .liquid-drop {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #d946ef);
+            mix-blend-mode: screen;
+        }
+
+        .drop-1 {
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            animation: liquidMorph 8s ease-in-out infinite;
+            background: conic-gradient(from 0deg, #3b82f6, #8b5cf6, #3b82f6);
+        }
+
+        .drop-2 {
+            top: 20%;
+            right: 20%;
+            width: 60%;
+            height: 60%;
+            animation: liquidMorph 12s ease-in-out infinite reverse;
+            background: radial-gradient(circle at 30% 30%, #22d3ee, transparent);
+            opacity: 0.8;
+        }
+
+        .drop-3 {
+            bottom: 10%;
+            left: 30%;
+            width: 50%;
+            height: 50%;
+            animation: liquidSpin 6s linear infinite;
+            background: #ec4899;
+            opacity: 0.6;
+        }
+
+        /* The Glass Shell Reflection */
+        .logo-glass-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.1) 20%, transparent 50%);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.2), 
+                        inset 2px 2px 5px rgba(255,255,255,0.5),
+                        0 10px 20px rgba(99, 102, 241, 0.3);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes liquidMorph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg); }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(180deg); }
+        }
+
+        @keyframes liquidSpin {
+            0% { transform: rotate(0deg) translate(5px) rotate(0deg); }
+            100% { transform: rotate(360deg) translate(5px) rotate(-360deg); }
+        }
+
+        /* === 3D SCANNER CSS === */
+        .scanner-card {
+            transform-style: preserve-3d;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .scan-beam {
+            background: linear-gradient(to bottom, transparent 40%, rgba(34, 211, 238, 0.2) 50%, transparent 55%);
+            background-size: 100% 200%;
+        }
+        
+        .scan-line {
+            background: #22d3ee;
+            box-shadow: 0 0 15px #22d3ee, 0 0 30px #3b82f6;
+        }
+
+        /* === HERO 3D FLUX CORE === */
+        .hero-flux-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.7;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .flux-core {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, rgba(236, 72, 153, 0.05) 40%, transparent 70%);
+            filter: blur(40px);
+            border-radius: 50%;
+        }
+
+        .flux-blob-1 {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 400px;
+            height: 400px;
+            background: conic-gradient(from 0deg, #6366f1, #a855f7, #ec4899, #6366f1);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: morph 10s ease-in-out infinite, blobSpin 20s linear infinite;
+            mix-blend-mode: screen;
+        }
+
+        .flux-blob-2 {
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            width: 300px;
+            height: 300px;
+            background: conic-gradient(from 180deg, #06b6d4, #3b82f6, #06b6d4);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            filter: blur(50px);
+            opacity: 0.5;
+            animation: morph 8s ease-in-out infinite reverse, blobSpin 15s linear infinite reverse;
+            mix-blend-mode: screen;
+        }
+
+        /* Light mode adjustments for Flux */
+        .bg-gray-50 .flux-blob-1, .bg-gray-50 .flux-blob-2 {
+            mix-blend-mode: multiply;
+            opacity: 0.2;
+        }
+
+        /* Modal Animation */
+        .modal-active .modal-backdrop {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-active .modal-content {
+            animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-[#020203] dark:text-white antialiased selection:bg-indigo-500/30 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md border-b border-black/5 dark:border-white/5 bg-white/80 dark:bg-[#020203]/80">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo Area -->
+                <div class="flex items-center gap-3 group cursor-pointer">
+                    <!-- NEW WORLD CLASS FLUID 3D LOGO -->
+                    <div class="logo-wrapper">
+                        <!-- SVG Filter Definition (Hidden) -->
+                        <svg class="fluid-filter">
+                            <defs>
+                                <filter id="gooey">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                                    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+                                </filter>
+                            </defs>
+                        </svg>
+                        
+                        <div class="logo-liquid-container">
+                            <div class="liquid-drop drop-1"></div>
+                            <div class="liquid-drop drop-2"></div>
+                            <div class="liquid-drop drop-3"></div>
+                        </div>
+                        <div class="logo-glass-shine"></div>
+                    </div>
+                    <!-- End Logo -->
+                    
+                    <div class="flex flex-col justify-center">
+                        <span class="font-display font-bold text-xl tracking-tighter text-gray-900 dark:text-white group-hover:opacity-90 transition-opacity leading-none">
+                            gradient<span class="text-indigo-500 dark:text-indigo-400">.ai</span>
+                        </span>
+                        <span class="text-[0.6rem] font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase mt-0.5">
+                            transparent news.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="#vision" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors tracking-wide">VISION</a>
+                    <a href="#features" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors tracking-wide">FEATURES</a>
+                    <a href="#roadmap" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors tracking-wide">ROADMAP</a>
+                    <a href="#contribute" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors tracking-wide">CREATORS</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors text-gray-600 dark:text-white">
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                        <i class="fa-solid fa-moon block dark:hidden"></i>
+                    </button>
+
+                    <!-- CTA -->
+                    <button onclick="openWaitlistModal()" class="hidden md:block bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors px-6 py-2.5 rounded-full text-sm font-bold font-display tracking-tight shadow-lg">
+                        Join Waitlist
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 tech-grid z-0"></div>
+        
+        <!-- NEW 3D FLUX CORE BACKGROUND -->
+        <div class="hero-flux-container">
+            <div class="flux-core"></div>
+            <div class="flux-blob-1"></div>
+            <div class="flux-blob-2"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+            <!-- Headline -->
+            <h1 class="text-5xl md:text-8xl font-display font-bold tracking-tighter mb-8 leading-[1.1] md:leading-[1.1] text-gray-900 dark:text-white">
+                Next Gen Journalism <br>
+                <span class="text-gradient-hero relative inline-block">
+                    Starts Here.
+                    <!-- Underline decoration -->
+                    <svg class="absolute w-full h-3 -bottom-2 left-0 text-indigo-500 opacity-50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                        <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+                </span>
+            </h1>
+            
+            <!-- Subhead -->
+            <p class="mt-8 max-w-2xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-400 font-light leading-relaxed tracking-wide">
+                The world’s first fully autonomous personalised AI driven newsroom. 
+                <span class="text-gray-900 dark:text-gray-200 font-medium">Zero bias. 7 layers of verification. Infinite scale.</span>
+            </p>
+            
+            <!-- CTAs -->
+            <div class="mt-12 flex flex-col sm:flex-row justify-center gap-6 items-center">
+                <button onclick="openWaitlistModal()" class="group relative px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold text-base overflow-hidden transition-all hover:scale-105 shadow-xl">
+                    <span class="relative z-10">Create Your Feed</span>
+                </button>
+                
+                <button onclick="openVideoModal()" class="group flex items-center gap-3 px-8 py-4 rounded-full glass-premium font-bold text-base hover:bg-white/5 transition-colors text-gray-900 dark:text-white cursor-pointer">
+                    <div class="w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center group-hover:bg-black/10 dark:group-hover:bg-white/20 transition-colors">
+                        <i class="fa-solid fa-play text-xs ml-0.5"></i>
+                    </div>
+                    <span>Watch Demo</span>
+                </button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="mt-24 pt-8 border-t border-black/5 dark:border-white/5 flex flex-wrap justify-center gap-16 md:gap-24 opacity-80">
+                <div class="text-center">
+                    <div class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-1">100%</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Autonomous</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
+                        3.8s
+                        <span class="flex h-2 w-2 relative">
+                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                             <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                    </div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Verification Cycle</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-1">∞</div>
+                    <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Possibilities</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision & Values Section -->
+    <section id="vision" class="py-24 bg-white dark:bg-brand-surface border-b border-black/5 dark:border-white/5 relative overflow-hidden transition-colors duration-300">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-indigo-100/50 dark:from-indigo-900/10 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <h2 class="text-xs font-bold tracking-[0.2em] text-indigo-500 dark:text-indigo-400 uppercase mb-6">Our Vision</h2>
+                <h3 class="text-3xl md:text-5xl font-display font-bold leading-tight mb-8 text-gray-900 dark:text-white">
+                    Clarity without confusion. <br>
+                    <span class="text-gray-400 dark:text-gray-500">Fairness without bias.</span> <br>
+                    Information without noise.
+                </h3>
+                <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed font-light mb-12">
+                    Our vision is to create a trusted and inclusive information system where every person and community has access to simple and verified news. We are building a global network where AI agents and human contributors work together to support informed communities.
+                </p>
+                
+                <div class="glass-premium p-8 rounded-2xl border-l-4 border-indigo-500">
+                    <h4 class="text-gray-900 dark:text-white font-bold text-lg mb-3">Why Gradient Matters</h4>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        People are overwhelmed by confusing news, misinformation, and biased sources. Many communities lack the tools to access clear information. Gradient solves this by making trusted news simple, personal, and transparent.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparency Engine -->
+    <section id="transparency" class="py-32 relative bg-gray-50 dark:bg-brand-bg border-b border-black/5 dark:border-white/5 overflow-hidden transition-colors duration-300">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-100/50 dark:from-indigo-900/10 via-transparent to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                
+                <!-- Graphic Visualization -->
+                <div class="relative">
+                     <div class="glass-premium rounded-3xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50 animate-scan z-20"></div>
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h3 class="text-gray-900 dark:text-white font-bold font-display text-lg tracking-wide">Transparency Score</h3>
+                                <p class="text-gray-500 text-xs uppercase tracking-widest mt-1">Live Processing ID: #8X9-22</p>
+                            </div>
+                            <div class="px-3 py-1 bg-green-100 dark:bg-green-900/20 border border-green-500/20 rounded text-green-600 dark:text-green-400 text-xs font-bold font-mono">
+                                VERIFIED
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center py-8">
+                            <div class="relative w-40 h-40 flex items-center justify-center">
+                                <svg class="absolute w-full h-full transform -rotate-90">
+                                    <circle cx="80" cy="80" r="70" class="stroke-gray-200 dark:stroke-slate-700" stroke-width="8" fill="none" />
+                                    <circle cx="80" cy="80" r="70" stroke="#10b981" stroke-width="8" fill="none" stroke-dasharray="440" stroke-dashoffset="10" stroke-linecap="round" />
+                                </svg>
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-gray-900 dark:text-white font-display">99.8</div>
+                                    <div class="text-xs text-green-600 dark:text-green-400 font-bold uppercase tracking-wider">Trusted</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-mono text-[10px] text-gray-500 space-y-2 mt-4 p-4 bg-gray-100 dark:bg-black/40 rounded-xl border border-black/5 dark:border-white/5">
+                            <div class="flex justify-between"><span>> Source_Auth</span> <span class="text-green-500">PASS</span></div>
+                            <div class="flex justify-between"><span>> Bias_Check_v4</span> <span class="text-green-500">PASS</span></div>
+                            <div class="flex justify-between"><span>> Latency</span> <span class="text-indigo-500 dark:text-indigo-400">3.82s</span></div>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- Text Content -->
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-8 tracking-tight leading-tight text-gray-900 dark:text-white">
+                        Trust takes exactly <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400">3.8 seconds.</span>
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg mb-10 font-light">
+                        We don't just aggregate news; we reconstruct it. Every update shows its sources and explains why it is trustworthy. No bias, no hidden processing.
+                    </p>
+                    <div class="space-y-4 font-display">
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">1. Source Identity Authentication</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">2. Cross-Lateral Data Confirmation</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">3. Historical Credibility Audit</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">4. Sentiment & Bias Calibration</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">5. Contextual Hallucination Guardrails</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">6. Fact-Base Correlation</div>
+                        <div class="layer-item active text-gray-900 dark:text-white font-medium">7. Final Synthesis & Transparency Scoring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section (UPDATED WITH 3D BLOBS) -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-display font-bold mb-6 tracking-tight text-gray-900 dark:text-white">System Capabilities</h2>
+                <div class="h-1 w-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+                    Engineered for accessibility, scale, and truth.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1: Blue Blob -->
+                <div class="glass-premium p-8 rounded-2xl group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors flex flex-col items-center text-center">
+                    <div class="mb-6">
+                        <div class="blob-3d blob-v1"></div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 font-display text-gray-900 dark:text-white">Personal Channel</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Your own news feed that is simple, verified, and tailored specifically to your interests and needs.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Purple Blob -->
+                <div class="glass-premium p-8 rounded-2xl group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors flex flex-col items-center text-center">
+                    <div class="mb-6">
+                        <div class="blob-3d blob-v2"></div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 font-display text-gray-900 dark:text-white">Multi-Agent Newsroom</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        A digital team: Collection agent, Checking agent, Validation agent, and Presenter working in unison.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Green Blob -->
+                <div class="glass-premium p-8 rounded-2xl group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors flex flex-col items-center text-center">
+                    <div class="mb-6">
+                        <div class="blob-3d blob-v3"></div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 font-display text-gray-900 dark:text-white">Low Cost & Accessible</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Runs smoothly on basic laptops (8GB RAM) and uses significantly less energy than traditional networks.
+                    </p>
+                </div>
+
+                <!-- Feature 4: Orange Blob -->
+                <div class="glass-premium p-8 rounded-2xl group hover:bg-gray-100 dark:hover:bg-white/5 transition-colors flex flex-col items-center text-center">
+                    <div class="mb-6">
+                        <div class="blob-3d blob-v4"></div>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 font-display text-gray-900 dark:text-white">Community Channels</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Small organizations and local groups can run their own dedicated news channels without hiring staff.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fine Tuning / Personas (Moved inside Features for flow) -->
+            <div class="mt-16 pt-16 border-t border-black/5 dark:border-white/5">
+                <h3 class="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white">Fine-Tuned For Any Purpose</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Scholar -->
+                    <div class="glass-premium p-8 rounded-2xl">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i class="fa-solid fa-graduation-cap text-indigo-500 dark:text-indigo-400"></i>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Scholarships & Jobs</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">For students tracking academic opportunities.</p>
+                    </div>
+                    <!-- Industry -->
+                    <div class="glass-premium p-8 rounded-2xl">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i class="fa-solid fa-briefcase text-pink-500 dark:text-pink-400"></i>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Industry Updates</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">For professionals needing market clarity.</p>
+                    </div>
+                    <!-- Cultural -->
+                    <div class="glass-premium p-8 rounded-2xl">
+                        <div class="flex items-center gap-4 mb-4">
+                            <i class="fa-solid fa-earth-americas text-cyan-500 dark:text-cyan-400"></i>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Cultural Communities</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">For alumni groups and local communities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-24 bg-white dark:bg-brand-surface relative overflow-hidden transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl font-display font-bold mb-12 text-center text-gray-900 dark:text-white">Future Expansion</h2>
+            
+            <div class="relative roadmap-line space-y-12">
+                <!-- Item 1 -->
+                <div class="relative flex items-center gap-6 pl-10 group">
+                    <div class="absolute left-[11px] w-4 h-4 bg-indigo-500 rounded-full border-4 border-white dark:border-brand-surface group-hover:scale-125 transition-transform"></div>
+                    <div class="glass-premium p-6 rounded-xl w-full">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">Community Reporter System</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Infrastructure for local inputs.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="relative flex items-center gap-6 pl-10 group">
+                    <div class="absolute left-[11px] w-4 h-4 bg-indigo-500 rounded-full border-4 border-white dark:border-brand-surface group-hover:scale-125 transition-transform"></div>
+                    <div class="glass-premium p-6 rounded-xl w-full">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">Earn from Verified Reporting</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Monetization for factual contributors.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="relative flex items-center gap-6 pl-10 group">
+                    <div class="absolute left-[11px] w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded-full border-4 border-white dark:border-brand-surface group-hover:bg-indigo-500 transition-colors"></div>
+                    <div class="glass-premium p-6 rounded-xl w-full">
+                        <h4 class="font-bold text-gray-500 dark:text-gray-300 mb-1">Mobile App & Language Support</h4>
+                        <p class="text-sm text-gray-400 dark:text-gray-500">Global accessibility expansion.</p>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="relative flex items-center gap-6 pl-10 group">
+                    <div class="absolute left-[11px] w-4 h-4 bg-gray-300 dark:bg-gray-600 rounded-full border-4 border-white dark:border-brand-surface group-hover:bg-indigo-500 transition-colors"></div>
+                    <div class="glass-premium p-6 rounded-xl w-full">
+                        <h4 class="font-bold text-gray-500 dark:text-gray-300 mb-1">Education & Youth Tools</h4>
+                        <p class="text-sm text-gray-400 dark:text-gray-500">AI-powered learning and tools for schools/youth centers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ACCESSIBILITY SECTION -->
+    <section id="accessibility" class="py-24 bg-gray-50 dark:bg-brand-bg border-t border-black/5 dark:border-white/5 relative overflow-hidden transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Content -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-widest uppercase">
+                        <i class="fa-solid fa-universal-access"></i> Universal Design
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-6 tracking-tight text-gray-900 dark:text-white">
+                        News for <span class="text-indigo-500 dark:text-indigo-400">Everyone.</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-light">
+                        Information is a fundamental right. Gradient is engineered from the ground up to be fully accessible to people with disabilities, including blind users, those with motor impairments, and neurodiverse communities.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <!-- Feature 1 -->
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-ear-listen text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Audio-First Experience</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Native screen reader optimization and AI-narrated briefings for blind and low-vision users.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Visual & Cognitive Adaptability</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">High-contrast modes, dyslexia-friendly fonts, and simplified summary options for neurodiverse readers.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Feature 3 -->
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-900/20 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-hands-asl-interpreting text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-1">Motor Accessibility</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Full keyboard navigation support and voice command integration for hands-free control.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Interface Simulation -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+                    <div class="glass-premium p-10 rounded-3xl relative border border-white/20 transform hover:rotate-1 transition-transform duration-500">
+                        <div class="flex items-center justify-between mb-8 border-b border-black/5 dark:border-white/5 pb-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="text-[10px] font-mono text-gray-400 flex items-center gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                                ACCESSIBILITY_MODE: ACTIVE
+                            </div>
+                        </div>
+                        
+                        <!-- Simulated Audio Player -->
+                        <div class="space-y-6">
+                            <div class="p-5 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-wider">Now Playing</span>
+                                    <i class="fa-solid fa-wave-square text-gray-400"></i>
+                                </div>
+                                <div class="text-lg font-bold text-gray-900 dark:text-white mb-4">Daily Briefing: Science & Tech</div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-indigo-500 hover:bg-indigo-600 transition-colors cursor-pointer flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                                        <i class="fa-solid fa-play ml-1"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <!-- Fake Waveform -->
+                                        <div class="flex items-center gap-1 h-8">
+                                            <div class="w-1 bg-indigo-400 h-3 rounded-full animate-pulse"></div>
+                                            <div class="w-1 bg-indigo-400 h-5 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+                                            <div class="w-1 bg-indigo-400 h-8 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                                            <div class="w-1 bg-indigo-400 h-4 rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+                                            <div class="w-1 bg-indigo-400 h-6 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+                                            <div class="w-1 bg-indigo-400 h-3 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                                            <div class="w-1 bg-gray-300 dark:bg-gray-600 h-1 rounded-full w-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Controls -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-gray-500">High Contrast</span>
+                                    <div class="w-8 h-4 bg-green-500 rounded-full relative">
+                                        <div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full shadow"></div>
+                                    </div>
+                                </div>
+                                <div class="p-4 rounded-xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-gray-500">Dyslexia Font</span>
+                                    <span class="text-xs font-serif font-bold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-500 rounded px-1">Aa</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contribution Section (UPDATED WITH 3D SCANNER) -->
+    <section id="contribute" class="py-32 relative overflow-hidden bg-gray-50 dark:bg-brand-bg border-t border-black/5 dark:border-white/5 transition-colors duration-300">
+        <!-- Ambient Background Glow -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-gradient-to-l from-indigo-500/5 dark:from-indigo-500/10 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                
+                <!-- 3D HOLOGRAPHIC SCANNER VISUAL -->
+                <div class="order-2 lg:order-1 relative flex flex-col items-center justify-center py-12 perspective-box">
+                     
+                     <!-- The 3D Card -->
+                     <div class="scanner-card relative w-80 h-96 rounded-[2rem] bg-white/40 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl flex flex-col items-center justify-center group overflow-hidden">
+                         
+                         <!-- Scanning Laser Overlay -->
+                         <div class="scan-beam absolute top-0 left-0 w-full h-full z-10 pointer-events-none rounded-[2rem] animate-scan-down"></div>
+                         <div class="scan-line absolute left-0 w-full h-[2px] z-11 animate-scan-line"></div>
+
+                         <!-- Fingerprint & Lock Combination -->
+                         <div class="relative z-20 mb-8 transform transition-transform duration-500 group-hover:scale-110">
+                             <!-- Glowing Ring Background -->
+                             <div class="absolute inset-0 bg-indigo-500/20 rounded-full blur-2xl animate-pulse"></div>
+                             
+                             <!-- Fingerprint Icon with NEW Gradient -->
+                             <i class="fa-solid fa-fingerprint text-[10rem] text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 via-indigo-500 to-purple-600 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]"></i>
+                             
+                             <!-- Lock Overlay (Floating) -->
+                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-2 animate-float">
+                                 <div class="w-16 h-16 bg-black/50 dark:bg-black/80 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                                     <i class="fa-solid fa-lock text-3xl text-white"></i>
+                                 </div>
+                             </div>
+                         </div>
+
+                         <!-- Updated Verified Badge (Premium Gold/Cyan Theme) -->
+                         <div class="relative z-20 flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-gray-900 to-black border border-gray-700 shadow-lg">
+                            <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#22d3ee]"></div>
+                            <span class="text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white tracking-[0.2em] uppercase">Identity Verified</span>
+                        </div>
+                        
+                        <!-- Decorative Corners -->
+                        <div class="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 border-white/30 rounded-tl-lg"></div>
+                        <div class="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 border-white/30 rounded-tr-lg"></div>
+                        <div class="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 border-white/30 rounded-bl-lg"></div>
+                        <div class="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 border-white/30 rounded-br-lg"></div>
+                     </div>
+                     
+                     <!-- Floor Shadow -->
+                     <div class="w-64 h-4 bg-black/20 dark:bg-black/50 blur-xl rounded-[100%] mt-8 animate-pulse"></div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <div class="inline-block px-4 py-1.5 mb-6 border border-amber-500/30 bg-amber-500/10 rounded-full text-amber-600 dark:text-amber-400 text-xs font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(245,158,11,0.1)]">
+                        <i class="fa-solid fa-star mr-2"></i> Future Contributor Program
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tight text-gray-900 dark:text-white leading-tight">
+                        Anyone can be <br> 
+                        <span class="text-gradient-gold">a Reporter.</span>
+                    </h2>
+                    
+                    <p class="text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed font-light">
+                        In the future, Gradient will support verified human contributors who can publish factual stories and <strong class="text-gray-900 dark:text-white font-semibold">earn income</strong>. This allows anyone with a story to become a journalist and share useful information with their community.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="openWaitlistModal()" class="px-10 py-4 bg-gradient-to-r from-gray-900 to-black dark:from-white dark:to-gray-200 text-white dark:text-black font-bold rounded-full hover:scale-105 transition-transform shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] dark:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
+                            Join Waitlist
+                        </button>
+                        <button class="px-8 py-4 rounded-full border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors font-semibold text-gray-900 dark:text-white">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-black/5 dark:border-white/5 bg-white dark:bg-[#020203] pt-24 pb-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start pb-16 border-b border-black/5 dark:border-white/5 gap-10">
+                <div>
+                    <!-- Footer Logo (Also Animated) -->
+                    <div class="flex items-center gap-2 mb-6">
+                         <!-- NEW WORLD CLASS FLUID 3D LOGO SMALL -->
+                        <div class="logo-wrapper w-10 h-10 transform scale-75 origin-left">
+                            <div class="logo-liquid-container">
+                                <div class="liquid-drop drop-1"></div>
+                                <div class="liquid-drop drop-2"></div>
+                                <div class="liquid-drop drop-3"></div>
+                            </div>
+                            <div class="logo-glass-shine"></div>
+                        </div>
+                        
+                        <div class="flex flex-col justify-center">
+                            <span class="font-display font-bold text-xl tracking-tighter text-gray-900 dark:text-white group-hover:opacity-90 transition-opacity leading-none">
+                                gradient<span class="text-indigo-500 dark:text-indigo-400">.ai</span>
+                            </span>
+                            <span class="text-[0.6rem] font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase mt-0.5">
+                                transparent news.
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
+                        The world's first autonomous news network. <br>Built on transparency, powered by intelligence.
+                    </p>
+                </div>
+                <div class="flex gap-16">
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-gray-900 dark:text-white font-bold text-sm tracking-wider uppercase">Platform</h4>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Features</a>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Agents</a>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Security</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="text-gray-900 dark:text-white font-bold text-sm tracking-wider uppercase">Company</h4>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Manifesto</a>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Careers</a>
+                        <a href="#" class="text-gray-500 hover:text-black dark:hover:text-white text-sm transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 dark:text-gray-600 font-medium">
+                <p>&copy; 2025 GRADIENT.AI INC. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-black dark:hover:text-white transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-black dark:hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                    <a href="#" class="hover:text-black dark:hover:text-white transition-colors"><i class="fa-brands fa-discord text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlistModal" class="fixed inset-0 z-[100] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="modalBackdrop" onclick="closeWaitlistModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4 transition-all opacity-0" id="modalContent">
+            <div class="glass-premium p-8 rounded-3xl relative bg-white/90 dark:bg-[#0A0A0C]/90 border border-white/20 shadow-2xl">
+                <!-- Close Button -->
+                <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 mb-4">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold font-display text-gray-900 dark:text-white mb-2">Join the Waitlist</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Be the first to experience the future of autonomous news.</p>
+                </div>
+                
+                <form onsubmit="handleWaitlistSubmit(event)" class="space-y-4">
+                    <div>
+                        <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">Email Address</label>
+                        <input type="email" id="email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-lg shadow-indigo-500/25 transition-all transform hover:scale-[1.02]">
+                        Get Early Access
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity opacity-0" id="videoModalBackdrop" onclick="closeVideoModal()"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl p-4 transition-all opacity-0" id="videoModalContent">
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black">
+                <button onclick="closeVideoModal()" class="absolute top-4 right-4 z-10 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <iframe id="youtubePlayer" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Check for saved theme preference
+        if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            // Uncomment to respect system preferences automatically
+            // document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('waitlistModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalContent = document.getElementById('modalContent');
+
+        function openWaitlistModal() {
+            modal.classList.remove('hidden');
+            // Trigger reflow
+            void modal.offsetWidth;
+            
+            modal.classList.add('modal-active');
+            modalBackdrop.style.opacity = '1';
+            modalContent.style.opacity = '1';
+            modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+
+        function closeWaitlistModal() {
+            modal.classList.remove('modal-active');
+            modalBackdrop.style.opacity = '0';
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'translate(-50%, -40%) scale(0.95)';
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function handleWaitlistSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            // Here you would typically send data to backend
+            
+            // Show success state (simple alert for demo)
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Success! You are on the list.';
+            btn.classList.replace('bg-indigo-600', 'bg-green-600');
+            
+            setTimeout(() => {
+                closeWaitlistModal();
+                // Reset form after closing
+                setTimeout(() => {
+                    e.target.reset();
+                    btn.innerText = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-indigo-600');
+                }, 300);
+            }, 1500);
+        }
+
+        // Video Modal Logic
+        const videoModal = document.getElementById('videoModal');
+        const videoModalBackdrop = document.getElementById('videoModalBackdrop');
+        const videoModalContent = document.getElementById('videoModalContent');
+        const youtubePlayer = document.getElementById('youtubePlayer');
+        const videoId = 'pR-3OBNtFc4';
+
+        function openVideoModal() {
+            videoModal.classList.remove('hidden');
+            // Trigger reflow
+            void videoModal.offsetWidth;
+            
+            videoModal.classList.add('modal-active');
+            videoModalBackdrop.style.opacity = '1';
+            videoModalContent.style.opacity = '1';
+            videoModalContent.style.transform = 'translate(-50%, -50%) scale(1)';
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        }
+
+        function closeVideoModal() {
+            videoModal.classList.remove('modal-active');
+            videoModalBackdrop.style.opacity = '0';
+            videoModalContent.style.opacity = '0';
+            videoModalContent.style.transform = 'translate(-50%, -40%) scale(0.95)';
+            
+            // Stop video by resetting src
+            setTimeout(() => {
+                videoModal.classList.add('hidden');
+                youtubePlayer.src = '';
+            }, 300);
+        }
+    </script>
+</body>
+</html>
